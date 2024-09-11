@@ -173,7 +173,7 @@ async def main() -> None:
 
     # Run the crawler with the initial list of URLs.
     await crawler.run([encoded_url])
-         `r = data_name + '.csv'`
+         r = data_name + '.csv'
 
     #stores all the scraped data in a csv file
     await crawler.export_data(r)
