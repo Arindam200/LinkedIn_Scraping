@@ -6,19 +6,14 @@ Crawlee is a web scraping and browser automation library that allows you to perf
 
 In this article, we are going to be learning how to scrape LinkedIn’s website for job postings using Crawlee for Python. Furthermore, we will also be building a simple web application using Streamlit for the front end and FastAPI for the back end.
 
-
 ## Prerequisites
 
 Here is a list of things we must have installed before moving further:
 
 - [Python 3.9](https://www.python.org/) or later 
-
 - [Crawlee ](https://crawlee.dev/python)
-
 - [Streamlit ](https://streamlit.io/)
-
 - [FastAPI](https://fastapi.tiangolo.com/)
-
 
 ### Virtual environment creation
 
@@ -29,18 +24,15 @@ To create a virtual environment in Python, run this line in the path of your pro
 ```bash
 python -m venv name_of_virtual_enviroment
 ```
-
 The name you choose for your virtual environment should replace `name_of_virtual_enviroment`. For the sake of this article, I will call mine `.crawl`
 
 Activate your virtual environment
-
 
 #### For Windows Os
 
 ```bash
 .crawl\Scripts\activate
 ```
-
 
 #### For Mac/Linux Os
 
@@ -127,7 +119,6 @@ You should have something like this:
 The URL can be divided into two:
 
 - The base URL
-
 - The parameters
 
 The base URL is usually before the question mark while the parameters come after the question mark. Furthermore, you can change the inputs to the parameters to get different results on your webpage.
@@ -254,13 +245,11 @@ async def listing_handler(context: PlaywrightCrawlingContext) -> None:
     )
 ```
 
-
 ## Creating your Application
 
 A typical web application is made up of a frontend and a backend. For this project, we will be using Streamlit for the front end and a FastAPI backend.
 
 Before we proceed, we are going to add two new files named `app.py` and `fast.py` to our `src` directory.
-
 
 ### Streamlit
 
@@ -304,7 +293,6 @@ def main():
 if __name__ == "__main__":
     main()
 ```
-
 
 ### FastAPI
 
@@ -412,5 +400,3 @@ You should have something like this as the output of your CSV file.
 ## Conclusion
 
 In this tutorial, we have been able to learn how to build an application that is capable of scraping job posting data from LinkedIn using Crawlee. Have fun building great scraping applications with Crawlee.
-
-
