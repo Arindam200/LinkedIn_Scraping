@@ -1,5 +1,0 @@
-# crawlee[playwright]
-crawlee[all]
-streamlit
-uvicorn
-fastapi
