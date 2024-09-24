@@ -1,10 +1,10 @@
-import asyncio
 from contextlib import suppress, asynccontextmanager
-from crawlee.basic_crawler import Router
-from crawlee.models import Request
+from crawlee.router import Router
+from crawlee import Request
 from crawlee.playwright_crawler import PlaywrightCrawlingContext
 from playwright.async_api import TimeoutError as PlaywrightTimeoutError
 import re
+
 
 
 router = Router[PlaywrightCrawlingContext]()
@@ -20,7 +20,9 @@ async def default_handler(context: PlaywrightCrawlingContext) -> None:
 
     #add all the links to the job listing route
     await context.add_requests(
-            [Request.from_url(rec, label='job_listing') for rec in hrefs]
+            [
+                Request.from_url(rec, label='job_listing') for rec in hrefs
+             ]
         )
 
   
@@ -45,6 +47,7 @@ async def listing_handler(context: PlaywrightCrawlingContext) -> None:
         {
             'title': re.sub(r'[\s\n]+', '', job_title),
             'Company name': re.sub(r'[\s\n]+', '', company_name),
+            # 'number of applicants':  re.sub(r'[\s\n]+', '', number_of_applicants), 
             'Time of posting': re.sub(r'[\s\n]+', '', time_of_posting), 
             'url': context.request.loaded_url,
         }
@@ -53,3 +56,9 @@ async def listing_handler(context: PlaywrightCrawlingContext) -> None:
 
 
 
+
+
+
+
+
+        
