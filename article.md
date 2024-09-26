@@ -19,7 +19,8 @@ Let’s get started
 
 ## Prerequisites
 
-Let's start by installing Crawlee for Python with this command:
+
+Let's start by creating a new Crawlee for Python project with this command:
 
 
 ```
@@ -42,14 +43,10 @@ Poetry install
 
 In this section, we are going to be building the scraper using the Crawlee Python package. To learn more about Crawlee, check out their [documentation](https://crawlee.dev/python/docs/quick-start).
 
-				
-
 
 ### Inspecting the LinkedIn job Search Page
 
 Open LinkedIn on your web browser and sign out from the website (if you already have an account logged in). You should see an interface like this.
-
-
 
 
 ![alt_text](images/image2.png "image_tooltip")
@@ -66,16 +63,10 @@ You should have something like this:
 
 `https://www.linkedin.com/jobs/search?keywords=Backend%20Developer&location=Canada&geoId=101174742&trk=public_jobs_jobs-search-bar_search-submit&position=1&pageNum=0` 
 
-The URL can be divided into two:
 
+We're going to focus on the search parameters, which is the part that goes after '?'. The keyword and location parameters are the most important ones for us. 
 
-
-* The base URL
-* The parameters
-
-The base URL is usually before the question mark while the parameters come after the question mark. Furthermore, you can change the inputs to the parameters to get different results on your webpage.
-
-Our focus is going to be on the keyword and location parameters. The job title the user supplies will serve as input to the keyword parameter while the location the user supplies will go into the location parameter. Lastly, the geoId parameter will be removed while we keep the other parameters constant.
+The job title the user supplies will serve as input to the keyword parameter while the location the user supplies will go into the location parameter. Lastly, the geoId parameter will be removed while we keep the other parameters constant.
 
 We are going to be making changes to our `main.py` file. Copy and paste the code below in your `main.py` file.
 
@@ -115,26 +106,24 @@ async def main(title: str, location: str, data_name: str) -> None:
 
  
 
-The main function takes in the title, location and data_name parameters. Furthermore, we used the [Urllib](https://docs.python.org/3/library/urllib.html) library to encode the base URL and its parameters into a format that can be used to make requests to the web. 
-
-Now that we have encoded the URL, the next step for us is to set up the playwright crawler to take in your custom-defined routers. 
+Now that we have encoded the URL, the next step for us is to adjust the generated router to handle linkedin job postings. 
 
 
 ### Routing your Crawler
 
-We will be making use of two routers for your application. These routes include:
+We will be making use of two handlers for your application:
 
 
 
 * **Default handler** 
 
-The `default_handler` route is the fallback route that handles the start URL
+The `default_handler` handles the start URL
 
 
 
 * **Job listing**
 
-The `job_listing` route extracts the individual job details.
+The `job_listing` handler extracts the individual job details.
 
 The Playwright crawler is going to crawl through the job posting page and extract the links to all job postings on the page.
 
@@ -171,7 +160,7 @@ async def default_handler(context: PlaywrightCrawlingContext) -> None:
 ```
 
 
-Now that we have the job postings, the next step is to scrape the details on them.
+Now that we have the job listings, the next step is to scrape their details.
 
 We'II extract each job’s title, company's name, time of posting and the link to the job post. Open your dev tools to extract each element Xpath.
 
@@ -180,7 +169,7 @@ We'II extract each job’s title, company's name, time of posting and the link t
 ![alt_text](images/image5.png "image_tooltip")
 
 
-After scraping each of the parameters, we'll remove special characters from the text to make it clean and push the data to local storage using `context.push_data` function.
+After scraping each of the listings, we'll remove special characters from the text to make it clean and push the data to local storage using `context.push_data` function.
 
 
 ```
