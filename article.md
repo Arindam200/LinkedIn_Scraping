@@ -137,12 +137,6 @@ When you examine the job postings, you will discover that the job posting links 
 
 
 ```
-from contextlib import suppress, asynccontextmanager
-from crawlee.router import Router
-from crawlee import Request
-from crawlee.playwright_crawler import PlaywrightCrawlingContext
-from playwright.async_api import TimeoutError as PlaywrightTimeoutError
-import re
 
 router = Router[PlaywrightCrawlingContext]()
 
