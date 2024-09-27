@@ -34,7 +34,7 @@ After installation, Crawlee for Python will create a boilerplate code for you. R
 
 
 ```
-Poetry install
+poetry install
 ```
 
 
