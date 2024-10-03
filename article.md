@@ -106,7 +106,7 @@ async def main(title: str, location: str, data_name: str) -> None:
 
  
 
-Now that we have encoded the URL, the next step for us is to adjust the generated router to handle linkedin job postings. 
+Now that we have encoded the URL, the next step for us is to adjust the generated router to handle LinkedIn job postings. 
 
 
 ### Routing your Crawler
