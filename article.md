@@ -13,10 +13,6 @@ By the end of this tutorial, you’ll have had a fully functional web applicatio
 
 ![alt_text](images/image1.png "image_tooltip")
 
-
-Let’s get started
-
-
 ## Prerequisites
 
 
