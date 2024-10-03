@@ -125,7 +125,7 @@ The `default_handler` handles the start URL
 
 The `job_listing` handler extracts the individual job details.
 
-The Playwright crawler is going to crawl through the job posting page and extract the links to all job postings on the page.
+PlaywrightCrawler is going to crawl through the job posting page and extract the links to all job postings on the page.
 
 
 
