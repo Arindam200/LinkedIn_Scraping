@@ -52,7 +52,7 @@ Open LinkedIn on your web browser and sign out from the website (if you already 
 ![alt_text](images/image2.png "image_tooltip")
 
 
-Navigate to the jobs section, search for a job and location of your choice; copy the Uniform Resource Locator (URL).
+Navigate to the jobs section, search for a job and location of your choice; copy the URL.
 
 
 
