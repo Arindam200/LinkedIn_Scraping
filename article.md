@@ -41,7 +41,7 @@ poetry install
 
 ## Building the LinkedIn Scraper using Crawlee for Python
 
-In this section, we are going to be building the scraper using the Crawlee Python package. To learn more about Crawlee, check out their [documentation](https://crawlee.dev/python/docs/quick-start).
+In this section, we are going to be building the scraper using the Crawlee for Python package. To learn more about Crawlee, check out their [documentation](https://crawlee.dev/python/docs/quick-start).
 
 
 ### Inspecting the LinkedIn job Search Page
