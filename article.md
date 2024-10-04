@@ -13,6 +13,10 @@ By the end of this tutorial, you’ll have had a fully functional web applicatio
 
 ![alt_text](images/image1.png "image_tooltip")
 
+
+Let's start
+
+
 ## Prerequisites
 
 
@@ -32,13 +36,11 @@ After installation, Crawlee for Python will create a boilerplate code for you. R
 ```
 poetry install
 ```
-
-
+We are going to begin editing the files provided to us by crawlee inorder for us to build our scraper
 
 ## Building the LinkedIn Scraper using Crawlee for Python
 
 In this section, we are going to be building the scraper using the Crawlee for Python package. To learn more about Crawlee, check out their [documentation](https://crawlee.dev/python/docs/quick-start).
-
 
 ### Inspecting the LinkedIn job Search Page
 
@@ -58,6 +60,7 @@ Navigate to the jobs section, search for a job and location of your choice; copy
 You should have something like this:
 
 `https://www.linkedin.com/jobs/search?keywords=Backend%20Developer&location=Canada&geoId=101174742&trk=public_jobs_jobs-search-bar_search-submit&position=1&pageNum=0` 
+
 
 
 We're going to focus on the search parameters, which is the part that goes after '?'. The keyword and location parameters are the most important ones for us. 
@@ -83,8 +86,14 @@ async def main(title: str, location: str, data_name: str) -> None:
         "position": "1",
         "pageNum": "0"
     }
-    encoded_params = urllib.parse.urlencode(params)
-    encoded_url = f"{base_url}?{encoded_params}"
+
+    encoded_params = urlencode(params)
+    
+    # Encode parameters into a query string
+    query_string = '?' + encoded_params
+
+    # Combine base URL with the encoded query string
+    encoded_url = urljoin(base_url, "") + query_string
 
     # Initialize the crawler
     crawler = PlaywrightCrawler(
@@ -100,9 +109,10 @@ async def main(title: str, location: str, data_name: str) -> None:
 ```
 
 
- 
+
 
 Now that we have encoded the URL, the next step for us is to adjust the generated router to handle LinkedIn job postings. 
+ 
 
 
 ### Routing your Crawler
@@ -121,7 +131,7 @@ The `default_handler` handles the start URL
 
 The `job_listing` handler extracts the individual job details.
 
-PlaywrightCrawler is going to crawl through the job posting page and extract the links to all job postings on the page.
+Playwright crawler is going to crawl through the job posting page and extract the links to all job postings on the page.
 
 
 
@@ -152,11 +162,11 @@ async def default_handler(context: PlaywrightCrawlingContext) -> None:
 
 Now that we have the job listings, the next step is to scrape their details.
 
-We'II extract each job’s title, company's name, time of posting and the link to the job post. Open your dev tools to extract each element Xpath.
+We'II extract each job’s title, company's name, time of posting and the link to the job post. Open your dev tools to extract each element using its CSS selector. 
 
 
 
-![alt_text](images/image5.png "image_tooltip")
+![alt_text](images/image9.png "image_tooltip")
 
 
 After scraping each of the listings, we'll remove special characters from the text to make it clean and push the data to local storage using `context.push_data` function.
@@ -169,15 +179,17 @@ async def listing_handler(context: PlaywrightCrawlingContext) -> None:
 
     await context.page.wait_for_load_state('load')
 
-    job_title = await context.page.locator('//*[@id="main-content"]/section[1]/div/section[2]/div/div[1]/div/h1').text_content()
+    job_title = await context.page.locator('div.top-card-layout__entity-info h1.top-card-layout__title').text_content()
+   
+    company_name  = await context.page.locator('span.topcard__flavor a').text_content()   
 
-    company_name  = await context.page.locator('//*[@id="main-content"]/section[1]/div/section[2]/div/div[1]/div/h4/div[1]/span[1]/a').text_content()
-
-    time_of_posting= await context.page.locator('//*[@id="main-content"]/section[1]/div/section[2]/div/div[1]/div/h4/div[2]/span').text_content()
+    time_of_posting= await context.page.locator('div.topcard__flavor-row span.posted-time-ago__text').text_content()
 
 
     await context.push_data(
         {
+            # we are maing use of regex to remove special characters for the extracted texts
+
             'title': re.sub(r'[\s\n]+', '', job_title),
             'Company name': re.sub(r'[\s\n]+', '', company_name),
             'Time of posting': re.sub(r'[\s\n]+', '', time_of_posting),
@@ -190,7 +202,7 @@ async def listing_handler(context: PlaywrightCrawlingContext) -> None:
 
 ## Creating your Application
 
-For this project, we will be using Streamlit for the web application. Before we proceed, we are going to create a new file named `app.py` in your project directory. In addition, ensure you have  [Streamlit](https://docs.streamlit.io/get-started/installation) installed in your global Python environment before proceeding with this section.
+For this project, we will be using Streamlit for the web application. Before we proceed, we are going to create a new file named `app.py` in your project directory. In addition, ensure you have  [Streamlit](https://docs.streamlit.io/get-started/installation)  installed in your global Python environment before proceeding with this section.
 
 
 ```

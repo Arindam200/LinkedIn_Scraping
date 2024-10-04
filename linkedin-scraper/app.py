@@ -9,7 +9,7 @@ st.title("LinkedIn Job Scraper")
 with st.form("scraper_form"):
     title = st.text_input("Job Title", value="backend developer")
     location = st.text_input("Job Location", value="newyork")
-    data_name = st.text_input("Output File Name", value="backend_job")
+    data_name = st.text_input("Output File Name", value="backend_jobs")
 
     submit_button = st.form_submit_button("Run Scraper")
 
