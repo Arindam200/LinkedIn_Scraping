@@ -15,7 +15,6 @@ with st.form("scraper_form"):
 
 
 
-
 if submit_button:
 
     # Run the scraping script with the form inputs
