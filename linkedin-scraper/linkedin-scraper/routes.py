@@ -25,7 +25,8 @@ async def default_handler(context: PlaywrightCrawlingContext) -> None:
              ]
         )
 
-  
+
+
 
 @router.handler('job_listing')
 async def listing_handler(context: PlaywrightCrawlingContext) -> None:
@@ -33,12 +34,13 @@ async def listing_handler(context: PlaywrightCrawlingContext) -> None:
 
     await context.page.wait_for_load_state('load')
 
+    
 
-    job_title = await context.page.locator('//*[@id="main-content"]/section[1]/div/section[2]/div/div[1]/div/h1').text_content()
+    job_title = await context.page.locator('div.top-card-layout__entity-info h1.top-card-layout__title').text_content()
+   
+    company_name  = await context.page.locator('span.topcard__flavor a').text_content()   
 
-    company_name  = await context.page.locator('//*[@id="main-content"]/section[1]/div/section[2]/div/div[1]/div/h4/div[1]/span[1]/a').text_content()
-
-    time_of_posting= await context.page.locator('//*[@id="main-content"]/section[1]/div/section[2]/div/div[1]/div/h4/div[2]/span').text_content()
+    time_of_posting= await context.page.locator('div.topcard__flavor-row span.posted-time-ago__text').text_content()
 
     
 

@@ -1,6 +1,6 @@
 from crawlee.playwright_crawler import PlaywrightCrawler
-from .routes import router
-import urllib.parse                                         
+from .routes import router  
+from urllib.parse import urlencode, urljoin                                    
 
 
 
@@ -15,8 +15,15 @@ async def main(title: str, location: str, data_name: str) -> None:
         "position": "1",
         "pageNum": "0"
     }
-    encoded_params = urllib.parse.urlencode(params)
-    encoded_url = f"{base_url}?{encoded_params}"
+
+    encoded_params = urlencode(params)
+    
+    # Encode parameters into a query string
+    query_string = '?' + encoded_params
+
+    # Combine base URL with the encoded query string
+    encoded_url = urljoin(base_url, "") + query_string
+    
 
     # Initialize the crawler
     crawler = PlaywrightCrawler(
