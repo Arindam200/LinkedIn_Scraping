@@ -94,13 +94,10 @@ async def main(title: str, location: str, data_name: str) -> None:
         "pageNum": "0"
     }
 
-    encoded_params = urlencode(params)
-    
-    # Encode parameters into a query string
-    query_string = '?' + encoded_params
 
-    # Combine base URL with the encoded query string
-    encoded_url = urljoin(base_url, "") + query_string
+    encoded_params = urllib.parse.urlencode(params)
+    encoded_url = f"{base_url}?{encoded_params}"
+
 
     # Initialize the crawler
     crawler = PlaywrightCrawler(
@@ -162,7 +159,6 @@ poetry run python -m linkedin-scraper --title "Backend Developer"  --location "C
 
 
 
-
 Now that we have encoded the URL and tested the crawler, the next step for us is to adjust the generated router to handle LinkedIn job postings. 
  
 
@@ -183,7 +179,7 @@ The `default_handler` handles the start URL
 
 The `job_listing` handler extracts the individual job details.
 
-Playwright crawler is going to crawl through the job posting page and extract the links to all job postings on the page.
+PlaywrightCrawler is going to crawl through the job posting page and extract the links to all job postings on the page.
 
 
 
@@ -240,7 +236,7 @@ async def listing_handler(context: PlaywrightCrawlingContext) -> None:
 
     await context.push_data(
         {
-            # we are maing use of regex to remove special characters for the extracted texts
+            #The regex removes all unnecessary whitespace and newlines from the scraped text
 
             'title': re.sub(r'[\s\n]+', '', job_title),
             'Company name': re.sub(r'[\s\n]+', '', company_name),
