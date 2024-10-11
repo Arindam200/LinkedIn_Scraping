@@ -36,7 +36,7 @@ After installation, Crawlee for Python will create a boilerplate code for you. R
 poetry install
 ```
 
-We are going to begin editing the files provided to us by crawlee in order for us to build our scraper
+We are going to begin by editing the files provided to us by Crawlee in order for us to build our scraper.
 
 
 ## Building the LinkedIn Scraper using Crawlee for Python
